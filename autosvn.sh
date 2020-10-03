@@ -6,13 +6,18 @@
 RED=31
 GREEN=32
 BLUE=44
+#svn的版本库目录
+SVN_PATH=/usr/svn/
+#公网ip地址
+IP=39.107.50.238
+#端口
+PORT=3690
+
 #颜色
 function colorAdd ()
 {
 	echo -e "\033[1;$1m$2\033[0m"
 }
-#svn的版本库目录
-SVN_PATH=/usr/svn/
 
 #创建版本库的方法
 function createProject(){
@@ -49,7 +54,7 @@ function createProject(){
 		if [ $? -eq 0 ]; then
 			colorAdd "$GREEN" '自动创建项目版本库成功!';
 			echo '版本库地址为：'
-			colorAdd "$BLUE" "svn://192.168.0.116/$project";
+			colorAdd "$BLUE" "svn://$IP:$PORT/$project";
 		fi
 	else
 		#创建失败
