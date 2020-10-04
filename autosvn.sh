@@ -12,6 +12,8 @@ SVN_PATH=/usr/svn/
 IP=39.107.50.238
 #端口
 PORT=3690
+#用户起始行
+USERLINE=4
 
 #颜色
 function colorAdd ()
@@ -146,6 +148,20 @@ function deleteUser(){
 	init
 }
 
+#查看所有用户
+function allUser(){
+	sed -n "$USERLINE,$"p ${SVN_PATH}passwd | awk '{print $1}'
+	echo ''
+	init
+}
+
+#查看所有项目
+function allProject(){
+	find "$SVN_PATH" -type d | awk -F/ '{print $4}' | sort | uniq | awk '{if(NF>0) print $0}'
+	echo ''
+	init
+}
+
 #重置用户密码
 function changeUser(){
 	read -p '请输入用户名: ' user
@@ -190,6 +206,8 @@ function init(){
 	3.删除版本库
 	4.删除用户
 	5.重置用户密码
+	6.查看所有用户
+	7.查看所有项目
 	q.退出
 	EOF
 
@@ -201,6 +219,8 @@ function init(){
 		3) deleteProject ;;
 		4) deleteUser ;;
 		5) changeUser ;;
+		6) allUser ;;
+		7) allProject ;;
 		q) exit ;;
 		*) init ;;
 	esac
