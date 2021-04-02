@@ -9,7 +9,7 @@ BLUE=44
 #svn的版本库目录
 SVN_PATH=/data/svndata/
 #公网ip地址
-IP=47.104.204.182
+IP=127.0.0.1
 #端口
 PORT=3690
 #用户起始行
@@ -49,8 +49,8 @@ function createProject(){
 			[general]
 			anon-access = none
 			auth-access = write
-			password-db = /usr/svn/passwd
-			authz-db = /usr/svn/authz
+			password-db = /data/svndata/passwd
+			authz-db = /data/svndata/authz
 		EOF
 		echo "realm = $project" >> $SVN_PATH${project}/conf/svnserve.conf;
 		if [ $? -eq 0 ]; then
