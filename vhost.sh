@@ -48,9 +48,29 @@ else
 	done
 fi
 
+
+#php版本
+read -p "是否选择php版本(默认为php7.2，y/n): " version
+if [[ "$version" == "y" || "$version" == "Y" ]]; then
+	#配置php版本
+	echo -e "1.\033[1;32mphp7.2\033[0m"
+	echo -e "2.\033[1;32mlphp7.4\033[0m"
+	read -p "请输入选项(1或者2): " version
+	while [[ ! -n "$version" ]]; do
+		read -p "请输入选项(1或者2): " version
+	done
+	if [[ "$version" == '2' ]]; then
+		version="74"
+	else
+		version="72"
+	fi
+else
+	version="72"
+fi
+
 #重写规则
 read -p "是否配置重写规则(y/n): " confirm
-if [[ "$confirm" == "y" || "$confirm" == "y" ]]; then
+if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
 	#配置重写规则
 	echo -e "1.\033[1;32mthinkphp\033[0m"
 	echo -e "2.\033[1;32mlaravel\033[0m"
@@ -77,7 +97,7 @@ server {
   listen 80;
   server_name $serverName;
   #access_log /usr/local/var/log/nginx/access.log combined;
-  index index.html index.htm index.php;
+  index index.php index.html index.htm;
   root $documentRoot;
 
   include $rewrite;
@@ -85,8 +105,8 @@ server {
   #error_page 502 /502.html;
 
   location ~ [^/]\.php(/|$) {
-    fastcgi_pass 127.0.0.1:9000;
-    #fastcgi_pass unix:/dev/shm/php-cgi.sock;
+    #fastcgi_pass 127.0.0.1:9000;
+    fastcgi_pass unix:/tmp/php-cgi-$version.sock;
     fastcgi_index index.php;
     include fastcgi.conf;
   }
