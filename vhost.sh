@@ -54,7 +54,7 @@ read -p "是否选择php版本(默认为php7.2，y/n): " version
 if [[ "$version" == "y" || "$version" == "Y" ]]; then
 	#配置php版本
 	echo -e "1.\033[1;32mphp7.2\033[0m"
-	echo -e "2.\033[1;32mlphp7.4\033[0m"
+	echo -e "2.\033[1;32mphp7.4\033[0m"
 	read -p "请输入选项(1或者2): " version
 	while [[ ! -n "$version" ]]; do
 		read -p "请输入选项(1或者2): " version
