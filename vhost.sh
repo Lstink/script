@@ -3,7 +3,7 @@
 source ~/script/fun.sh
 VHOSTDIR="/usr/local/etc/nginx/vhosts"
 REWRITEDIR="/usr/local/etc/nginx/rewrite/"
-REWRITEARRAY=('thinkPhp' 'laravel')
+REWRITEARRAY=('thinkPhp' 'laravel' 'yii')
 
 #测试默认目录是否存在
 function testVhostsExists ()
@@ -74,14 +74,19 @@ if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
 	#配置重写规则
 	echo -e "1.\033[1;32mthinkphp\033[0m"
 	echo -e "2.\033[1;32mlaravel\033[0m"
-	read -p "请输入选项(1或者2): " rewrite
+	echo -e "3.\033[1;32myii\033[0m"
+	read -p "请输入选项(1|2|3): " rewrite
 	while [[ ! -n "$rewrite" ]]; do
-		read -p "请输入选项(1或者2): " rewrite
+		read -p "请输入选项(1|2|3): " rewrite
 	done
 	if [[ "$rewrite" == '1' ]]; then
 		rewrite="${REWRITEDIR}thinkphp.conf"
-	else
+	fi
+
+	if [[ "$rewrite" == '2' ]]; then
 		rewrite="${REWRITEDIR}laravel.conf"
+	else
+		rewrite="${REWRITEDIR}yii.conf"
 	fi
 else
 	rewrite="${REWRITEDIR}none.conf"
